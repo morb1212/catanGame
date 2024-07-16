@@ -71,7 +71,8 @@ Board::Board(){
     listSettlement[51]=Settlement({65,66,67},51);
     listSettlement[52]=Settlement({67,68,69},52);
     listSettlement[53]=Settlement({69,70,71},53);
-
+    
+//go over the roads in order to add the connected settlemnts
     for(int i = 0; i < 72; ++i) {
         std::list<Settlement> Settlements;
         for(int j=0; j<54; j++){
@@ -99,7 +100,8 @@ Board::Board(){
     this->map[16]=Place(Place::Forest, {68,69,70,49,51,53}, 11,{41,42,43,44,52,53});
     this->map[17]=Place(Place::AgriculturalLand, {54,56,58,60,71,70}, 4,{44,45,46,47,48,53});
     this->map[18]=Place(Place::Mountains, {61,63,65,67,69,71}, 9,{48,49,50,51,52,53});
-    
+
+    //go over the settlemnts to add the connected places
     for(int i = 0; i < 54; ++i) {
         for(int j=0; j< 19; j++){
             if(map[j].hasSettlement(i))
@@ -135,7 +137,7 @@ std::list<int> ariel::Board::getResourcesOfSettlement(int id)
     return resources;
 }
 
-
+//checking if the place is availble
 bool ariel::Board::placeSettelemnt(int idRequested)
 {
     if(idRequested<0||idRequested>=54){
@@ -144,6 +146,7 @@ bool ariel::Board::placeSettelemnt(int idRequested)
     }
     if (this->listSettlement[idRequested].getType()==Settlement::NONESettlement)
     {
+        //get the roads of the settlemnt in order to see if it has neighbors
         list<int>listOfRoadsSettlement=this->listSettlement[idRequested].getRoads();
         for (int road:listOfRoadsSettlement)
         {
@@ -165,7 +168,7 @@ bool ariel::Board::placeSettelemnt(int idRequested)
     return false;
 }
 
-
+//check if the road is availble
 bool ariel::Board::placeRoad(int idRequested)
 {
     if(idRequested<0||idRequested>=72){
@@ -186,7 +189,7 @@ void ariel::Board::removeRoad(int SelectedRoad)
 {
     this->listRoad[SelectedRoad].setIsTaken(false);
 }
-
+//update from village to city
 bool ariel::Board::updateToCity(int idRequested)
 {
     if(idRequested<0||idRequested>=54){
