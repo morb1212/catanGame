@@ -21,6 +21,7 @@ DevelopmentCard::DevelopmentCard() {
 
 DevelopmentCard::~DevelopmentCard() {}
 
+//return if there is the selected card, if not it will return -1
 int DevelopmentCard::randomCard(int selectedCard) {
     if(this->cards[selectedCard]==0){
         return -1;
