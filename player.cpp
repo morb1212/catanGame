@@ -104,6 +104,7 @@ bool ariel::Player::checkResourcesCITY()
     return false;
 }
 
+//add the settelment to the correct list, if it is a city it will delete it from the villages
 void ariel::Player::addSettlement(int selectedSettlement,int type)
 {
     switch (type)
