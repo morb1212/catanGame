@@ -5,7 +5,7 @@ VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 SOURCES=board.cpp catan.cpp developmentCard.cpp place.cpp player.cpp road.cpp settlement.cpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
-run: demo 
+catan: demo 
 	./$^
 
 demo: Demo.o $(OBJECTS)
