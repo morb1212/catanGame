@@ -64,8 +64,8 @@ TEST_CASE("Player")
     resources.push_back(Place::WOOL);
     resources.push_back(Place::WHEAT);
     p1.updateResources(resources, true);
-    p1.printResources();
     CHECK(p1.checkListResources(checkResources)==true);
+    //check amount villages
     p1.addSettlement(10, Settlement::VILLAGE);
     CHECK(p1.getVillages().size() == 2);
     CHECK(p1.getPoints() == 2);
@@ -159,7 +159,9 @@ TEST_CASE("Catan")
     DevelopmentCard developmentCard;
     Board board;
     Catan catan(&p1, &p2, &p3, &board, &developmentCard);
+    //check players names
     CHECK(p3.getName()=="Yossi2");
+    //start the game with p1, put setlemnts
     CHECK(catan.ChooseStartingPlayer() == &p1);
     CHECK(p1.getTurn()==true);
     CHECK(catan.isabletoplace(32, Settlement::VILLAGE, &p1, true) == true);
@@ -172,6 +174,7 @@ TEST_CASE("Catan")
     CHECK(catan.isabletoplace(36, Settlement::NONESettlement, &p1, true) == false);
     CHECK(catan.isabletoplace(63, Settlement::NONESettlement, &p1, true) == true);
     CHECK(catan.isabletoplace(64, Settlement::NONESettlement, &p1, true) == false);
+    
     //check resources
     std::list<int> resources;
     resources.push_back(Place::WOOD);
@@ -300,6 +303,10 @@ TEST_CASE("Catan")
     CHECK(p2.getPoints() == 5);
     //p2 has most roads
     p2.updateONEResource(Place::WHEAT,true);
+    
+    //create city and check if it replaced from village
     CHECK(catan.isabletoplace(42,Settlement::CITY,&p2,false)==true);
     CHECK(p2.getPoints() == 6);
+    CHECK(p2.getVillages().size()==2);
+    CHECK(p2.getCities().size()==1);
 }
