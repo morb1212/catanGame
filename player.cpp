@@ -243,7 +243,7 @@ void ariel::Player::setName(string inputname)
 {
     this->name=inputname;
 }
-
+//activate only if it is the player turn, throgh catan get all the cards
 bool ariel::Player::monopolyCard(int resource, Catan catan)
 {
     if(isItMyTurn()){
@@ -258,7 +258,7 @@ bool ariel::Player::monopolyCard(int resource, Catan catan)
     }
     return false;
 }
-
+//activate only if it is the player turn
 bool ariel::Player::freeResources(int resource1, int resource2)
 {
     if(isItMyTurn()){
@@ -272,7 +272,7 @@ bool ariel::Player::freeResources(int resource1, int resource2)
     }  
     return false;
 }
-
+//switch case according to the selected card
 bool ariel::Player::buyDevelopmentCard(DevelopmentCard* cardsAvailble,int selectedCard)
 {
     if(isItMyTurn()){
@@ -341,7 +341,7 @@ bool ariel::Player::addRoad(int SelectedRoad)
     return false;
 }
 
-
+//trade between two players, if it knight check if need to update the points
 bool ariel::Player::trade(Player* otherPlayer, int thisPlayerCard, int otherPlayerCard, int thisPlayerAmount, int otherPlayerAmount)
 {
     if (isItMyTurn()){
