@@ -75,7 +75,7 @@ DevelopmentCard* ariel::Catan::getcards()
 {
     return this->cards;
 }
-
+//end turn only if the player has more then 2 roads and settlemnts (validate first turn)
 void ariel::Catan::endTurn()
 {  
     if(this->p1->getTurn()
@@ -96,7 +96,7 @@ void ariel::Catan::endTurn()
     }
     printWinner();
 }
-
+// after getting sum of 2 cubes, checcking which players get new resources
 void ariel::Catan::rollDice(Player& p,int sumDice)
 {
     if (p.isItMyTurn())
@@ -104,6 +104,7 @@ void ariel::Catan::rollDice(Player& p,int sumDice)
         Player* list[]={this->p1,this->p2,this->p3};
         for(Player* target:list){
             std::list<int> settlementsP= target->getSettlements();
+            //going over settlemnts, and places
             for(int settlement:settlementsP){
                 std::list<int> placesofSTp= board->getSettlement(settlement)->getPlaces();
                 for(int place:placesofSTp){
@@ -145,7 +146,7 @@ bool ariel::Catan::monopolyCard(int resource, string name)
     targetPlayer->getResources()[resource] += totalResourceTaken;
     return true;
 }
-
+//update the pointer of has most roads and then update the points if needed
 void ariel::Catan::hasMostRoads(Player* targetPlayer)
 {
 
@@ -174,7 +175,7 @@ Player* ariel::Catan::getFromName(string name)
     }
     return targetPlayer;
 }
-
+//check if the selected road has in his area settelment, if so checking in board is availble
 bool Catan::placeRoad(int SelectedRoad,Player* targetPlayer) {
 
     std::list<int> roadSettlements = this->board->getRoad(SelectedRoad)->getSettlement();
@@ -205,7 +206,7 @@ bool Catan::placeRoad(int SelectedRoad,Player* targetPlayer) {
     std::cout << "No valid settlement or road connection found for player: " << targetPlayer->getName() << std::endl;
     return false;
 }
-
+//activate only if the player has the card check the limit amount of roads
 bool ariel::Catan::placeRoadCard(int SelectedRoad1, int SelectedRoad2, Player *target)
 {
     bool istaken1=this->board->getRoad(SelectedRoad1)->getIsTaken();
@@ -224,6 +225,7 @@ bool ariel::Catan::placeRoadCard(int SelectedRoad1, int SelectedRoad2, Player *t
                 return true;
             }
         }
+        //first place the first road, if worked then the second, if not return to the status before
         if(placeRoad(SelectedRoad1,target)){
             target->addRoad(SelectedRoad1);
             if(placeRoad(SelectedRoad2,target)){
@@ -269,7 +271,7 @@ bool ariel::Catan::isabletoplace(int id, int type, Player *target,bool firstTurn
     return false;
 }
 
-
+//check if it has a connection to road, if so check in board is availble
 bool ariel::Catan::placeSettelemnt(int selectedSettlement, Player* targetPlayer,bool firstTurn)
 {
     if (firstTurn)
@@ -291,7 +293,7 @@ bool ariel::Catan::placeSettelemnt(int selectedSettlement, Player* targetPlayer,
     }
     return false;
 }
-
+//place village, check the limit and update resources
 bool ariel::Catan::caseVillage(int id,Player *target, bool firstTurn)
 {
     // Check if the player has reached the maximum number of villages
