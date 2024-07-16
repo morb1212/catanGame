@@ -21,6 +21,7 @@ int main()
 {
     Player p1("Amit");
     Player p2("Yossi");
+    //will be amit2
     Player p3("Amit");
     DevelopmentCard developmentCard;
     Board board;
