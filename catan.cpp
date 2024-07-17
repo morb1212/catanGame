@@ -101,8 +101,15 @@ void ariel::Catan::rollDice(Player& p,int sumDice)
 {
     if (p.isItMyTurn())
     {
+        std::cout << "sum dice is "<< sumDice << endl;
         Player* list[]={this->p1,this->p2,this->p3};
         for(Player* target:list){
+            if(sumDice==7){
+                if(target->getResourcesSize()>7){
+                    std::cout << "remove "<< target->getResourcesSize()/2 <<" cards for "<<target->getName() << endl;
+                    target->removeHalfResources();
+                }
+            }
             std::list<int> settlementsP= target->getSettlements();
             //going over settlemnts, and places
             for(int settlement:settlementsP){
@@ -116,9 +123,8 @@ void ariel::Catan::rollDice(Player& p,int sumDice)
                 }
             }
         }
-    } else {
+    } else
         std::cout << " not p: "+p.getName()+" turn" << endl;
-    }
 }
 
 // Use the monopoly card to take all resources of a specific type from other players

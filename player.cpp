@@ -217,6 +217,35 @@ std::list<int> ariel::Player::getVillages()
     return this->villages;
 }
 
+int ariel::Player::getResourcesSize()
+{
+    int size=0;
+    for (int resource:this->resources){
+        size+=resource;
+    }
+    return size;
+}
+
+void ariel::Player::removeHalfResources()
+{
+    int size=getResourcesSize();
+    int list[size];
+    int index=0;
+    for (int i=0;i<6;i++){
+        int sizeofResource=this->resources[i];
+        for(int j=0;j<sizeofResource;j++){
+            list[index]=i;
+            index++;
+        }
+    }
+    for(int i=0;i<size;i++){
+        if(i%2==0){
+            int removeResource=list[i];
+            this->updateONEResource(removeResource,false);
+            }
+    }
+}
+
 void ariel::Player::printPoints()
 {
     std::cout << this->name + " has "+ to_string(this->points) + " points " << endl;

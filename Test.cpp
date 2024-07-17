@@ -18,6 +18,7 @@ using namespace ariel;
 
 TEST_CASE("Player")
 {
+    cout << "Player tests:" << endl;
     // Create a player named Amit
     Player p1("Amit");
 
@@ -65,6 +66,20 @@ TEST_CASE("Player")
     resources.push_back(Place::WHEAT);
     p1.updateResources(resources, true);
     CHECK(p1.checkListResources(checkResources)==true);
+    //remove half cards
+    CHECK(p1.getResourcesSize()==14);
+    p1.removeHalfResources();
+    CHECK(p1.getResourcesSize()==7);
+    std::list<int> checkResources2;
+    checkResources2.push_back(Place::IRON);
+    checkResources2.push_back(Place::IRON);    
+    checkResources2.push_back(Place::IRON);
+    checkResources2.push_back(Place::WHEAT);
+    checkResources2.push_back(Place::WHEAT);
+    checkResources2.push_back(Place::BRICK);
+    checkResources2.push_back(Place::WHEAT);
+    CHECK(p1.checkListResources(checkResources2)==true);
+
     //check amount villages
     p1.addSettlement(10, Settlement::VILLAGE);
     CHECK(p1.getVillages().size() == 2);
@@ -100,6 +115,7 @@ TEST_CASE("Player")
     resourcesP2.push_back(Place::IRON);
     p2.updateResources(resourcesP2,true);
     CHECK(p2.buyDevelopmentCard(&cards, DevelopmentCard::POINTS)==true);
+    p1.updateONEResource(Place::WOOL,true);
     CHECK(p1.buyDevelopmentCard(&cards, DevelopmentCard::POINTS) == true);
     CHECK(p1.buyDevelopmentCard(&cards, DevelopmentCard::POINTS) == false);
     CHECK(p2.getPoints() == 1);
@@ -133,10 +149,12 @@ TEST_CASE("Player")
     p1.updateONEResource(Place::WOOL, true);
     p1.updateONEResource(Place::IRON, true);
     CHECK(p1.buyDevelopmentCard(&cards, DevelopmentCard::KNIGHT)==false);
+    cout << "----------------" << endl;
 }
 
 TEST_CASE("Board")
 {
+    cout << "Board tests:" << endl;
     Board board;
     CHECK(board.placeSettelemnt(10) == true);
     CHECK(board.placeSettelemnt(10) == false);
@@ -148,10 +166,12 @@ TEST_CASE("Board")
     CHECK(board.placeSettelemnt(89) == false);
     CHECK(board.placeRoad(89) == false);
     CHECK(board.updateToCity(89) == false);
+    cout << "----------------" << endl;
 }
 
 TEST_CASE("Catan")
 {
+    cout << "Catan tests:" << endl;
     // Create players with duplicate names and test the Catan constructor for exceptions
     Player p1("Amit");
     Player p2("Yossi");
@@ -304,9 +324,17 @@ TEST_CASE("Catan")
     //p2 has most roads
     p2.updateONEResource(Place::WHEAT,true);
     
+    //if it has 7 in sum dice
+    CHECK(p1.getResourcesSize() == 10);
+    CHECK(p2.getResourcesSize()==7);
+    catan.rollDice(p2,7);
+    CHECK(p1.getResourcesSize() == 5);
+    CHECK(p2.getResourcesSize()==7);
+
     //create city and check if it replaced from village
     CHECK(catan.isabletoplace(42,Settlement::CITY,&p2,false)==true);
     CHECK(p2.getPoints() == 6);
     CHECK(p2.getVillages().size()==2);
     CHECK(p2.getCities().size()==1);
+    cout << "----------------" << endl;
 }

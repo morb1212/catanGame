@@ -53,6 +53,8 @@ namespace ariel {
         std::list<int> getCities();
         std::list<int> getVillages();
         int* getResources() {return resources;}
+        int getResourcesSize();
+        void removeHalfResources();
         void printPoints();
         bool isItMyTurn();
         bool getTurn();
