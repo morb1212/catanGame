@@ -219,6 +219,7 @@ TEST_CASE("Catan")
     CHECK(catan.isabletoplace(55, Settlement::NONESettlement, &p2, true) == false);
     CHECK(catan.isabletoplace(43, Settlement::VILLAGE, &p2, false) == false);
     CHECK(catan.isabletoplace(42, Settlement::VILLAGE, &p2, true) == true);
+    
     //there is no card
     CHECK(catan.placeRoadCard(53, 51, &p2) == false);
         //check resources
@@ -234,23 +235,24 @@ TEST_CASE("Catan")
     p2.updateONEResource(Place::WOOD, true);
     p3.updateONEResource(Place::WOOD, true);
     p1.setTurn(true);
-    CHECK(p1.monopolyCard(Place::WOOD, catan) == true);
     std::list<int> resources3;
-    resources3.push_back(Place::WOOD);
-    resources3.push_back(Place::WOOD);
     resources3.push_back(Place::WOOL);
     resources3.push_back(Place::IRON);
     resources3.push_back(Place::WOOD);
-    resources3.push_back(Place::WOOD);
-    CHECK(p2.checkListResources(resources2)==true);
     CHECK(p1.checkListResources(resources3)==true);
+    resources3.push_back(Place::WOOD);
+    resources3.push_back(Place::WOOD);
+    resources3.push_back(Place::WOOD);
+    CHECK(p1.monopolyCard(Place::WOOD, catan) == true);
+    CHECK(p1.checkListResources(resources3)==true);
+    resources2.pop_front();
+    CHECK(p2.checkListResources(resources2)==true);
     std::list<int> resources4;
     resources4.push_back(Place::BRICK);
     resources4.push_back(Place::WOOL);
     resources4.push_back(Place::IRON);
     resources4.push_back(Place::WHEAT);
     CHECK(p2.checkListResources(resources4)==true);
-    
 //roads card and points
     p1.updateONEResource(Place::WHEAT, true);
     p1.updateONEResource(Place::WOOL, true);
