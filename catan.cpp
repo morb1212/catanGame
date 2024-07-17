@@ -106,7 +106,7 @@ void ariel::Catan::rollDice(Player& p,int sumDice)
         for(Player* target:list){
             if(sumDice==7){
                 if(target->getResourcesSize()>7){
-                    std::cout << "remove "<< target->getResourcesSize()/2 <<" cards for "<<target->getName() << endl;
+                    std::cout << "remove "<< target->getResourcesSize()/2 <<" cards from "<<target->getName() << endl;
                     target->removeHalfResources();
                 }
             }
