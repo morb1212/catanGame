@@ -242,6 +242,7 @@ TEST_CASE("Catan")
     resources3.push_back(Place::IRON);
     resources3.push_back(Place::WOOD);
     resources3.push_back(Place::WOOD);
+    CHECK(p2.checkListResources(resources2)==true);
     CHECK(p1.checkListResources(resources3)==true);
     std::list<int> resources4;
     resources4.push_back(Place::BRICK);
@@ -249,6 +250,7 @@ TEST_CASE("Catan")
     resources4.push_back(Place::IRON);
     resources4.push_back(Place::WHEAT);
     CHECK(p2.checkListResources(resources4)==true);
+    
 //roads card and points
     p1.updateONEResource(Place::WHEAT, true);
     p1.updateONEResource(Place::WOOL, true);
