@@ -20,7 +20,6 @@ namespace ariel {
         int id;
         std::list<int> roads;
         std::list<int> places;
-        std::list<int> Settlements;
     public:
     enum type {
         VILLAGE,
